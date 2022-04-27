@@ -29,9 +29,9 @@ public class MedicalCardService {
         long personalIdentifier=generator.generatePersonalIdentifier();
         medicalCard.setPolicy(String.valueOf(personalIdentifier));
 
-        medicalCardRepository.save(medicalCard);
         consumer.setMedicalCard(medicalCard);
         userRepository.save(consumer);
+        medicalCardRepository.save(medicalCard);
         return personalIdentifier;
     }
 

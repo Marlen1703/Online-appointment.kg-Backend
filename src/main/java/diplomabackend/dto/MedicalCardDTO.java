@@ -4,5 +4,6 @@ import lombok.Data;
 
 @Data
 public class MedicalCardDTO {
-    private String personalIdentifier;
+
+    private String policy;
 }

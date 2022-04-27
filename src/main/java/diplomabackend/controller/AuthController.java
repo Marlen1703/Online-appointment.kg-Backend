@@ -6,6 +6,7 @@ import diplomabackend.dto.AuthResponseDTO;
 import diplomabackend.dto.ConsumerDTO;
 import diplomabackend.jwt.JwtTokenProvider;
 import diplomabackend.repository.UserRepository;
+import diplomabackend.service.AuthService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -18,14 +19,16 @@ import java.util.Optional;
 @RestController
 @RequestMapping(value = "/api/auth")
 public class AuthController {
+
     @Autowired
     UserRepository userRepository;
 
     @Autowired
     JwtTokenProvider jwtTokenProvider;
 
+
     @Autowired
-    ModelMapper modelMapper;
+    AuthService authService;
 
 
     private PasswordEncoder passwordEncoder(){
@@ -39,7 +42,7 @@ public class AuthController {
         if(user!=null){
             if(passwordEncoder().matches(request.getPassword(), user.get().getPassword())){
                 String token = jwtTokenProvider.createToken(user.get().getUsername());
-                ConsumerDTO consumer = modelMapper.map(user.get(), ConsumerDTO.class);
+                ConsumerDTO consumer=authService.auth(user.get());
                 return new AuthResponseDTO(consumer,token);
             }
         }
