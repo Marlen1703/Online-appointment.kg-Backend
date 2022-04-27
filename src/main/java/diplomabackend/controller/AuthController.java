@@ -3,8 +3,10 @@ package diplomabackend.controller;
 import diplomabackend.domain.Consumer;
 import diplomabackend.dto.AuthRequestDTO;
 import diplomabackend.dto.AuthResponseDTO;
+import diplomabackend.dto.ConsumerDTO;
 import diplomabackend.jwt.JwtTokenProvider;
 import diplomabackend.repository.UserRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -22,6 +24,9 @@ public class AuthController {
     @Autowired
     JwtTokenProvider jwtTokenProvider;
 
+    @Autowired
+    ModelMapper modelMapper;
+
 
     private PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
@@ -34,7 +39,8 @@ public class AuthController {
         if(user!=null){
             if(passwordEncoder().matches(request.getPassword(), user.get().getPassword())){
                 String token = jwtTokenProvider.createToken(user.get().getUsername());
-                return new AuthResponseDTO(token);
+                ConsumerDTO consumer = modelMapper.map(user.get(), ConsumerDTO.class);
+                return new AuthResponseDTO(consumer,token);
             }
         }
         throw new UsernameNotFoundException("User doesn't exist");

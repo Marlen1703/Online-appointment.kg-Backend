@@ -17,13 +17,26 @@ public class RegistrationRequestDTO {
     @NotNull
     private String middleName;
 
-//    @NotNull
-//    private LocalDateTime dateOfBirth;
+    @NotNull
+    private LocalDateTime dateOfBirth;
 
     @NotNull
     private String username;
 
+
     @NotNull
     private String password;
+
+
+    @NotNull
+    private String address;
+
+
+    @NotNull
+    private String city;
+
+    @NotNull
+    private String email;
+
 
 }

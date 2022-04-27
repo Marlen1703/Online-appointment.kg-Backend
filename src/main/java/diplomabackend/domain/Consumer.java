@@ -1,11 +1,13 @@
 package diplomabackend.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 
@@ -26,7 +28,7 @@ public class Consumer {
 
     private String middleName;
 
-    private Date  dateOfBirth;
+    private LocalDateTime dateOfBirth;
 
     private String username;
 
@@ -35,5 +37,11 @@ public class Consumer {
     @OneToOne
     @JoinColumn(name = "medical_card_id")
     private MedicalCard medicalCard;
+
+    private String city;
+
+    private String email;
+
+
 
 }

@@ -1,12 +1,14 @@
 package diplomabackend.service;
 
-import com.mifmif.common.regex.Generex;
-import com.mifmif.common.regex.util.Iterator;
 import diplomabackend.domain.MedicalCard;
 import diplomabackend.domain.Consumer;
 import diplomabackend.repository.MedicalCardRepository;
+import diplomabackend.repository.UserRepository;
+import diplomabackend.util.Generator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Random;
 
 @Service
 public class MedicalCardService {
@@ -14,17 +16,26 @@ public class MedicalCardService {
     @Autowired
     MedicalCardRepository medicalCardRepository;
 
-    public void createMedicalCard(Consumer consumer){
+    @Autowired
+    UserRepository userRepository;
+
+
+    @Autowired
+    Generator generator;
+
+    public long createMedicalCard(Consumer consumer){
         MedicalCard medicalCard=new MedicalCard();
         medicalCard.setOwner(consumer);
-        medicalCard.setPersonalIdentifier(generatePersonalIdentifier());
+        long personalIdentifier=generator.generatePersonalIdentifier();
+        medicalCard.setPolicy(String.valueOf(personalIdentifier));
+
         medicalCardRepository.save(medicalCard);
+        consumer.setMedicalCard(medicalCard);
+        userRepository.save(consumer);
+        return personalIdentifier;
     }
 
-    public String generatePersonalIdentifier(){
-        Generex generex = new Generex("[0-9]+");
-        String result = generex.random(12,12);
-        return result;
-    }
+
+
 }
 

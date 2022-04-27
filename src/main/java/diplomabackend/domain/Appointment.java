@@ -1,40 +1,33 @@
 package diplomabackend.domain;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Entity
 @Table
+@Entity
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class MedicalCard {
+public class Appointment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
+    private LocalDateTime time;
+
+    @ManyToOne
+    private Doctor attendingDoctor;
+
+    private String diagnosis;
 
     private String policy;
-
-
-    @PrePersist
-    public void prePersist() {
-        this.createdAt = LocalDateTime.now();
-    }
-
-
-    private LocalDateTime createdAt;
-
-    @OneToOne
-    @JoinColumn(name = "owner_id")
-    private Consumer owner;
-
-
 
 }
