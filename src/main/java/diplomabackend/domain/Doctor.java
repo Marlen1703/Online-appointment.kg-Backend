@@ -14,7 +14,6 @@ public class Doctor {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    private String name;
 
     private String firstName;
 
