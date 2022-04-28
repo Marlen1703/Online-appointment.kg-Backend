@@ -30,8 +30,8 @@ public class MedicalCardService {
         medicalCard.setPolicy(String.valueOf(personalIdentifier));
 
         consumer.setMedicalCard(medicalCard);
-        userRepository.save(consumer);
         medicalCardRepository.save(medicalCard);
+        userRepository.save(consumer);
         return personalIdentifier;
     }
 
