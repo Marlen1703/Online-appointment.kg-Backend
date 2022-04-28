@@ -29,4 +29,9 @@ public class Doctor {
 
     private String avatar;
 
+    private int rating;
+
+    private String education;
+
+
 }
