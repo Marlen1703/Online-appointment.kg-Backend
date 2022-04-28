@@ -1,6 +1,7 @@
 package diplomabackend.service;
 
 import diplomabackend.domain.Consumer;
+import diplomabackend.email.MailSender;
 import diplomabackend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,6 +17,9 @@ public class UserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+
+
 
     public Consumer createNewUser(Consumer consumer) throws Exception {
         Optional<Consumer> userExist=userRepository.findUserByUsername(consumer.getUsername());

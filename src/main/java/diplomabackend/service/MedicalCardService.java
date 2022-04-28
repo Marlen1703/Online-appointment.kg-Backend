@@ -2,6 +2,7 @@ package diplomabackend.service;
 
 import diplomabackend.domain.MedicalCard;
 import diplomabackend.domain.Consumer;
+import diplomabackend.email.MailSender;
 import diplomabackend.repository.MedicalCardRepository;
 import diplomabackend.repository.UserRepository;
 import diplomabackend.util.Generator;
@@ -23,6 +24,9 @@ public class MedicalCardService {
     @Autowired
     Generator generator;
 
+    @Autowired
+    MailSender mailSender;
+
     public long createMedicalCard(Consumer consumer){
         MedicalCard medicalCard=new MedicalCard();
         medicalCard.setOwner(consumer);
@@ -31,6 +35,7 @@ public class MedicalCardService {
 
         consumer.setMedicalCard(medicalCard);
         medicalCardRepository.save(medicalCard);
+        mailSender.sendMessage(consumer.getEmail(),medicalCard.getPolicy());
         userRepository.save(consumer);
         return personalIdentifier;
     }
