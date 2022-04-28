@@ -24,6 +24,7 @@ public class AppointmentController {
     @GetMapping("/{policy}")
     public Page getAllAppointmentsByPolicy(@PathVariable String policy, Pageable pageable){
          Page<Appointment> appointmentPage=appointmentRepository.findByPolicy(pageable,policy);
+        System.out.println(appointmentPage.get());
          return appointmentPage;
     }
 
