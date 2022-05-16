@@ -1,19 +1,14 @@
-package diplomabackend.domain;
+package diplomabackend.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-
-@Table
-@Entity
 @Data
-public class Doctor {
+@AllArgsConstructor
+@NoArgsConstructor
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Long id;
-
+public class DoctorDTO {
 
     private String firstName;
 
@@ -34,8 +29,5 @@ public class Doctor {
     private int rating;
 
     private String education;
-
-    private String password;
-
 
 }
