@@ -20,7 +20,7 @@ import java.util.Optional;
 
 
 @RestController
-@RequestMapping("/doctor")
+@RequestMapping("/doctor/api")
 public class DoctorController {
 
     @Autowired

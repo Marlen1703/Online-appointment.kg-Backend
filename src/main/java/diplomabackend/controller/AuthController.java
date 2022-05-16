@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "/api/auth")
+@RequestMapping(value = "consumer/api")
 public class AuthController {
 
     @Autowired
@@ -36,7 +36,7 @@ public class AuthController {
     }
 
 
-    @PostMapping
+    @PostMapping(value = "/auth")
     public AuthResponseDTO auth(@RequestBody AuthRequestDTO request) {
         Optional <Consumer> user = userRepository.findUserByUsername(request.getUsername());
         if(user!=null){
