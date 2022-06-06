@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "consumer/api")
+@RequestMapping(value = "api/user")
 public class AuthController {
 
     @Autowired
@@ -34,6 +34,7 @@ public class AuthController {
     private PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
+
 
 
     @PostMapping(value = "/auth")
