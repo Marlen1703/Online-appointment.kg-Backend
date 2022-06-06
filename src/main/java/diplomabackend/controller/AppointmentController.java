@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 
 @RestController
-@RequestMapping(value = "/appointment/api")
+@RequestMapping(value = "/api/appointment")
 public class AppointmentController {
 
     @Autowired
