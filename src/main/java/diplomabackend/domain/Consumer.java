@@ -2,6 +2,7 @@ package diplomabackend.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import diplomabackend.GenderEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -43,5 +44,16 @@ public class Consumer {
     private String email;
 
 
+    private GenderEnum gender;
 
+
+    private int weight;
+
+    private int height;
+
+    private int temperature;
+
+    private int pressure;
+
+    private String phone;
 }

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>/Users/darewod/Desktop/Online-appointment.kg-Backend</OriginalElement>
+  <nodes>
+    <node x="570.0" y="726.0">diplomabackend.dto.DoctorAuthResponseDTO</node>
+    <node x="1452.6623920905645" y="512.5426316005904">diplomabackend.dto.ConsumerDTO</node>
+    <node x="818.3407873914703" y="0.0">diplomabackend.domain.Appointment</node>
+    <node x="633.0" y="1480.0">diplomabackend.exception.handler.GeneralExceptionHandler</node>
+    <node x="1247.0" y="1728.0">diplomabackend.repository.AppointmentRepository</node>
+    <node x="0.0" y="1950.0">diplomabackend.repository.MedicalCardRepository</node>
+    <node x="0.0" y="1728.0">diplomabackend.service.AuthService</node>
+    <node x="290.0" y="1728.0">diplomabackend.ModelMapperConfig</node>
+    <node x="0.0" y="1312.0">diplomabackend.service.AppointmentService</node>
+    <node x="1746.2653989626247" y="9.06228828782261">diplomabackend.dto.AppointmentDTO</node>
+    <node x="1339.0" y="1604.0">diplomabackend.email.MailSender</node>
+    <node x="1289.0" y="726.0">diplomabackend.service.UserImpl.UserDetailsImpl</node>
+    <node x="1647.0" y="1480.0">diplomabackend.DiplomaBackendApplicationTests</node>
+    <node x="614.0" y="1852.0">diplomabackend.dto.RegistrationResponseDTO</node>
+    <node x="1600.444825241338" y="1728.0">diplomabackend.domain.Consumer</node>
+    <node x="304.0" y="726.0">diplomabackend.dto.NewAppointmentDTO</node>
+    <node x="950.0" y="726.0">diplomabackend.dto.DoctorAuthRequestDTO</node>
+    <node x="917.0" y="1852.0">diplomabackend.dto.RegistrationRequestDTO</node>
+    <node x="1022.0" y="1604.0">diplomabackend.DiplomaBackendApplication</node>
+    <node x="1452.0" y="1852.0">diplomabackend.dto.AuthRequestDTO</node>
+    <node x="0.0" y="1852.0">diplomabackend.exception.UserAlreadyExistException</node>
+    <node x="569.0" y="1728.0">diplomabackend.jwt.JwtConfigurer</node>
+    <node x="1553.7196828161968" y="415.05280358227526">diplomabackend.dto.DoctorDTO</node>
+    <node x="1684.0" y="1852.0">diplomabackend.dto.MedicalCardDTO</node>
+    <node x="1207.0" y="1852.0">diplomabackend.dto.AuthResponseDTO</node>
+    <node x="1488.0" y="1100.0">diplomabackend.controller.DoctorController</node>
+    <node x="348.0" y="1100.0">diplomabackend.controller.AppointmentController</node>
+    <node x="0.0" y="1100.0">diplomabackend.jwt.JwtTokenProvider</node>
+    <node x="308.0" y="1852.0">diplomabackend.exception.InvalidCredentialException</node>
+    <node x="774.0" y="1312.0">diplomabackend.service.MedicalCardService</node>
+    <node x="783.0" y="1100.0">diplomabackend.config.SecurityConfig</node>
+    <node x="1367.0" y="1312.0">diplomabackend.repository.DoctorRepository</node>
+    <node x="0.0" y="0.0">diplomabackend.domain.Doctor</node>
+    <node x="0.0" y="726.0">diplomabackend.exception.common.ErrorResponse</node>
+    <node x="691.0" y="1604.0">diplomabackend.service.UserService</node>
+    <node x="0.0" y="1604.0">diplomabackend.service.UserDetailsServiceImpl</node>
+    <node x="1641.0" y="1604.0">diplomabackend.util.Generator</node>
+    <node x="1089.0" y="1312.0">diplomabackend.StatusEnum</node>
+    <node x="1661.0" y="1728.0">diplomabackend.repository.UserRepository</node>
+    <node x="415.0" y="1312.0">diplomabackend.controller.AuthController</node>
+    <node x="1126.0" y="1100.0">diplomabackend.exception.common.BaseRuntimeException</node>
+    <node x="1183.0" y="1480.0">diplomabackend.jwt.JwtTokenFilter</node>
+    <node x="1640.0" y="726.0">diplomabackend.dto.PolicyDTO</node>
+    <node x="351.0" y="1604.0">diplomabackend.service.DoctorService</node>
+    <node x="0.0" y="1480.0">diplomabackend.controller.UserController</node>
+    <node x="322.67039369573513" y="0.0">diplomabackend.domain.MedicalCard</node>
+  </nodes>
+  <notes />
+  <edges />
+  <settings layout="Hierarchic" zoom="0.551737027249367" showDependencies="false" x="1080.9079026376" y="1655.327342306252" />
+  <SelectedNodes>
+    <node>diplomabackend.domain.Consumer</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

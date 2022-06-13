@@ -1,5 +1,6 @@
 package diplomabackend.domain;
 
+import diplomabackend.GenderEnum;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -21,11 +22,14 @@ public class Doctor {
 
     private String middleName;
 
+
     private String email;
 
     private String phone;
 
     private int experience;
+
+    private GenderEnum gender;
 
     private String speciality;
 

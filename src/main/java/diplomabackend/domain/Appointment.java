@@ -1,5 +1,6 @@
 package diplomabackend.domain;
 
+import diplomabackend.StatusEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -29,5 +30,10 @@ public class Appointment {
     private String diagnosis;
 
     private String policy;
+
+    private StatusEnum status;
+
+    @ManyToOne
+    private Consumer consumer;
 
 }

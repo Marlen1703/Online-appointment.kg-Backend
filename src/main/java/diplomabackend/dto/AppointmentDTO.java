@@ -1,6 +1,7 @@
 package diplomabackend.dto;
 
 import diplomabackend.StatusEnum;
+import diplomabackend.domain.Consumer;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -18,4 +19,6 @@ public class AppointmentDTO {
     private String policy;
 
     private StatusEnum status;
+
+    private ConsumerDTO consumer;
 }
