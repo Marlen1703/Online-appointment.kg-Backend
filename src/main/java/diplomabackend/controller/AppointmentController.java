@@ -73,7 +73,7 @@ public class AppointmentController {
         return appointmentDTOS;
     }
 
-    @GetMapping(value = "/today")
+    @GetMapping(value = "/admin/today")
     public Page<TodayAppointmentDTO> getAllTodayAppointments(@RequestParam(defaultValue = "0") int page,
                                                              @RequestParam(defaultValue = "10") int size,
                                                              @RequestHeader("Authorization") String token){
@@ -81,7 +81,7 @@ public class AppointmentController {
        return appointmentService.getAllTodayAppointments(page,size,login).map(TodayAppointmentDTO::new);
     };
 
-    @GetMapping(value = "/recently")
+    @GetMapping(value = "/admin/recently")
     public Page<AppointmentDTO> getAllRecentlyAppointments(@RequestParam(defaultValue = "0") int page,
                                                            @RequestParam(defaultValue = "10") int size,
                                                            @RequestHeader("Authorization") String token,
@@ -93,7 +93,7 @@ public class AppointmentController {
         return result;
     };
 
-    @GetMapping(value = "/explored")
+    @GetMapping(value = "/admin/explored")
     public Page<AppointmentDTO> getAllAppointments(@RequestParam(defaultValue = "0") int page,
                                                            @RequestParam(defaultValue = "10") int size,
                                                            @RequestHeader("Authorization") String token,
@@ -104,4 +104,10 @@ public class AppointmentController {
         Page<AppointmentDTO> result=new PageImpl<>(appointmentDTOS);
         return result;
     };
+
+    @GetMapping(value = "/admin/count")
+    public int getCountOfAppointments(@QuerydslPredicate(root = Appointment.class) Predicate predicate,@RequestHeader("Authorization") String token){
+        String login = jwtTokenProvider.getLoginFromToken(token.substring(7));
+        return appointmentService.getAllAppointmentCount(login,predicate);
+    }
 }

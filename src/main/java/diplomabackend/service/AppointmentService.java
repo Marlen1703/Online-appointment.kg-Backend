@@ -7,24 +7,19 @@ import diplomabackend.domain.Appointment;
 import diplomabackend.domain.Consumer;
 import diplomabackend.domain.Doctor;
 import diplomabackend.domain.QAppointment;
-import diplomabackend.dto.AppointmentDTO;
 import diplomabackend.dto.NewAppointmentDTO;
-import diplomabackend.exception.UserAlreadyExistException;
 import diplomabackend.repository.AppointmentRepository;
 import diplomabackend.repository.ConsumerRepository;
 import diplomabackend.repository.DoctorRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class AppointmentService {
@@ -96,7 +91,13 @@ public class AppointmentService {
         return appointmentPage;
     }
 
-
+    public int getAllAppointmentCount(String login, Predicate predicate) {
+        final QAppointment qAppointment = QAppointment.appointment;
+        final BooleanBuilder builder = new BooleanBuilder(predicate);
+        builder.and(qAppointment.attendingDoctor.email.eq(login));
+        List<Appointment> getAll = appointmentRepository.findAll(builder);
+        return getAll.size();
+    }
 }
 
 

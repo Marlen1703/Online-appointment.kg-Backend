@@ -16,6 +16,8 @@ import org.springframework.data.querydsl.binding.QuerydslBindings;
 import org.springframework.data.querydsl.binding.SingleValueBinding;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+
 
 public interface AppointmentRepository extends JpaRepository<Appointment,Long>,
         QuerydslPredicateExecutor<Appointment>, QuerydslBinderCustomizer<QAppointment> {
@@ -37,6 +39,8 @@ Page<Appointment> findAllTodayAppointments(@Param("id") Long id,Pageable pageabl
     @Override
     Page<Appointment> findAll(Predicate predicate,Pageable pageable);
 
+
+    List<Appointment> findAll(Predicate predicate);
 
     Page<Appointment> findAllByStatus(StatusEnum status, Pageable pageable);
 }
