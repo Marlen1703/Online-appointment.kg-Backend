@@ -2,6 +2,7 @@ package diplomabackend.dto;
 
 import com.sun.istack.NotNull;
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 
@@ -27,10 +28,11 @@ public class RegistrationRequestDTO {
     @NotNull
     private String password;
 
-
     @NotNull
     private String address;
 
+
+    private MultipartFile avatar;
 
     @NotNull
     private String city;

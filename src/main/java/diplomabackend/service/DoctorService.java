@@ -21,19 +21,21 @@ public class DoctorService {
     private PasswordEncoder passwordEncoder;
 
 
+
     public Page<Doctor> getAllDoctors(Pageable pageable){
 
         Page<Doctor> doctorPage=doctorRepository.findAll(pageable);
         return doctorPage;
     }
 
-    public void createNewDoctor(Doctor doctor) throws Exception {
+    public void createNewDoctor(Doctor doctor,String url) throws Exception {
             Optional<Doctor> userExist=doctorRepository.findByEmail(doctor.getEmail());
             if(userExist.isPresent()){
                 throw new Exception();
             }
             String jwtPassword= passwordEncoder.encode(doctor.getPassword());
             doctor.setPassword(jwtPassword);
+            doctor.setAvatar(url);
             doctorRepository.save(doctor);
     }
 }

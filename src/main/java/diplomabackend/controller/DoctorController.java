@@ -6,10 +6,12 @@ import diplomabackend.dto.*;
 import diplomabackend.jwt.JwtTokenProvider;
 import diplomabackend.repository.DoctorRepository;
 import diplomabackend.service.DoctorService;
+import diplomabackend.service.StorageService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -38,6 +40,9 @@ public class DoctorController {
     @Autowired
     ModelMapper modelMapper;
 
+    @Autowired
+    StorageService storageService;
+
 
     @GetMapping
     public Page<Doctor> getAllDoctors(Pageable pageable){
@@ -64,11 +69,13 @@ public class DoctorController {
         throw new UsernameNotFoundException("Doctor doesn't exist");
     }
 
-    @PostMapping(value = "/registration")
-    public ResponseEntity<String> createNewDoctor(@RequestBody DoctorRegistrationDTO doctorRegistrationDTO){
+    @PostMapping(value = "/registration",consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
+    public ResponseEntity<String> createNewDoctor(@ModelAttribute DoctorRegistrationDTO doctorRegistrationDTO){
         try{
             Doctor doctor = modelMapper.map(doctorRegistrationDTO, Doctor.class);
-            doctorService.createNewDoctor(doctor);
+            String url=storageService.store(doctorRegistrationDTO.getAvatar(),doctor.getEmail());
+            doctorService.createNewDoctor(doctor,url);
+
             return ResponseEntity.ok("Success");
         }
         catch (Exception e){

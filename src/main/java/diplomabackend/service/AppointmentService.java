@@ -3,14 +3,13 @@ package diplomabackend.service;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Predicate;
 import diplomabackend.StatusEnum;
-import diplomabackend.domain.Appointment;
-import diplomabackend.domain.Consumer;
-import diplomabackend.domain.Doctor;
+import diplomabackend.domain.*;
 import diplomabackend.domain.QAppointment;
 import diplomabackend.dto.NewAppointmentDTO;
 import diplomabackend.repository.AppointmentRepository;
 import diplomabackend.repository.ConsumerRepository;
 import diplomabackend.repository.DoctorRepository;
+import diplomabackend.repository.WorkHourRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,6 +17,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,6 +35,9 @@ public class AppointmentService {
     @Autowired
     ConsumerRepository consumerRepository;
 
+    @Autowired
+    WorkHourRepository workHourRepository;
+
 
     @Autowired
     ModelMapper modelMapper;
@@ -50,6 +53,8 @@ public class AppointmentService {
         return appointment.get();
     }
 
+
+    @Transactional
     public void createNewAppointment(NewAppointmentDTO newAppointmentDTO,String login) {
 
         Consumer consumer = consumerRepository.findByUsername(login);
@@ -58,11 +63,17 @@ public class AppointmentService {
 
         Appointment appointment=modelMapper.map(newAppointmentDTO,Appointment.class);
 
+        WorkHour workHour= WorkHour.builder()
+                .bookTime(newAppointmentDTO.getTime())
+                .doctorId(newAppointmentDTO.getDoctorId())
+                .isAvailable(false)
+                .build();
+        workHourRepository.save(workHour);
+
         appointment.setAttendingDoctor(doctor);
         appointment.setConsumer(consumer);
         appointment.setStatus(StatusEnum.UNEXPLORED);
         appointmentRepository.save(appointment);
-
     }
 
     public Page<Appointment> getAllTodayAppointments(int page, int size, String login) {
@@ -98,6 +109,8 @@ public class AppointmentService {
         List<Appointment> getAll = appointmentRepository.findAll(builder);
         return getAll.size();
     }
+
+
 }
 
 

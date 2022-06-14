@@ -21,13 +21,14 @@ public class UserService {
 
 
 
-    public Consumer createNewUser(Consumer consumer) throws Exception {
+    public Consumer createNewUser(Consumer consumer,String url) throws Exception {
         Optional<Consumer> userExist=userRepository.findUserByUsername(consumer.getUsername());
         if(userExist.isPresent()){
             throw new Exception();
         }
         String jwtPassword= passwordEncoder.encode(consumer.getPassword());
         consumer.setPassword(jwtPassword);
+        consumer.setAvatar(url);
         userRepository.save(consumer);
         return consumer;
     }

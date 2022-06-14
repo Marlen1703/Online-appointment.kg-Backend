@@ -1,6 +1,7 @@
 package diplomabackend.dto;
 
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
 @Data
 public class DoctorRegistrationDTO {
@@ -20,8 +21,7 @@ public class DoctorRegistrationDTO {
 
     private String speciality;
 
-
-    private int rating;
+    private MultipartFile avatar;
 
     private String education;
 

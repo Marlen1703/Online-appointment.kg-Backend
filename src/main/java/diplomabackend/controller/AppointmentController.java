@@ -5,7 +5,6 @@ import diplomabackend.domain.Appointment;
 import diplomabackend.dto.AppointmentDTO;
 import diplomabackend.dto.NewAppointmentDTO;
 import diplomabackend.dto.TodayAppointmentDTO;
-import diplomabackend.jwt.JwtTokenFilter;
 import diplomabackend.jwt.JwtTokenProvider;
 import diplomabackend.repository.AppointmentRepository;
 import diplomabackend.service.AppointmentService;
@@ -53,7 +52,7 @@ public class AppointmentController {
     public void createNewAppointment(@RequestBody NewAppointmentDTO newAppointmentDTO,
                                      @RequestHeader("Authorization") String token
                                      ){
-        String login = jwtTokenProvider.getLoginFromToken(token);
+        String login = jwtTokenProvider.getLoginFromToken(token.substring(7));
         appointmentService.createNewAppointment(newAppointmentDTO,login);
     }
 
@@ -110,4 +109,6 @@ public class AppointmentController {
         String login = jwtTokenProvider.getLoginFromToken(token.substring(7));
         return appointmentService.getAllAppointmentCount(login,predicate);
     }
+
+
 }

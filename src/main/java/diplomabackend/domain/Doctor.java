@@ -29,7 +29,6 @@ public class Doctor {
 
     private int experience;
 
-    private GenderEnum gender;
 
     private String speciality;
 

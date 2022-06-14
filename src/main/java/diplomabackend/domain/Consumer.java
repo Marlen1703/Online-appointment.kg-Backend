@@ -43,9 +43,7 @@ public class Consumer {
 
     private String email;
 
-
     private GenderEnum gender;
-
 
     private int weight;
 
@@ -56,4 +54,6 @@ public class Consumer {
     private int pressure;
 
     private String phone;
+
+    private String avatar;
 }
