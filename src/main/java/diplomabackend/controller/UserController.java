@@ -40,6 +40,7 @@ public class UserController {
             return ResponseEntity.ok("Success");
         }
         catch (Exception e){
+            System.out.println(e.getMessage());
             return ResponseEntity.notFound().build();
         }
     }

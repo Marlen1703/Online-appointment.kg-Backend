@@ -19,6 +19,7 @@ public class ConsumerDTO {
     private String username;
 
 
+
     private  String avatar;
 
     private String address;
