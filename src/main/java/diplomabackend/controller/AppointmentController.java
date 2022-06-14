@@ -2,9 +2,7 @@ package diplomabackend.controller;
 
 import com.querydsl.core.types.Predicate;
 import diplomabackend.domain.Appointment;
-import diplomabackend.dto.AppointmentDTO;
-import diplomabackend.dto.NewAppointmentDTO;
-import diplomabackend.dto.TodayAppointmentDTO;
+import diplomabackend.dto.*;
 import diplomabackend.jwt.JwtTokenProvider;
 import diplomabackend.repository.AppointmentRepository;
 import diplomabackend.service.AppointmentService;
@@ -111,8 +109,13 @@ public class AppointmentController {
     }
 
 
+    @GetMapping(value = "/admin/about/{id}")
+    public AboutAppointmentDTO getAboutAppointment(@PathVariable("id") Long id){
+        return appointmentService.getAboutAppointment(id);
+    }
 
-
-
-
+    @PostMapping(value = "diagnose")
+    public void diagnosePatient(@RequestBody DiagnoseDTO diagnose) {
+        appointmentService.diagnosePatient(diagnose);
+    }
 }

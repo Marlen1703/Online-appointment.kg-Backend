@@ -5,6 +5,8 @@ import com.querydsl.core.types.Predicate;
 import diplomabackend.StatusEnum;
 import diplomabackend.domain.*;
 import diplomabackend.domain.QAppointment;
+import diplomabackend.dto.AboutAppointmentDTO;
+import diplomabackend.dto.DiagnoseDTO;
 import diplomabackend.dto.NewAppointmentDTO;
 import diplomabackend.repository.AppointmentRepository;
 import diplomabackend.repository.ConsumerRepository;
@@ -111,6 +113,21 @@ public class AppointmentService {
     }
 
 
+    public AboutAppointmentDTO getAboutAppointment(Long id) {
+        Appointment appointment=appointmentRepository.findById(id).get();
+        return new AboutAppointmentDTO(appointment);
+    }
+
+    @Transactional
+    public void diagnosePatient(DiagnoseDTO diagnose) {
+        Appointment appointment=appointmentRepository.findById(diagnose.getId()).get();
+        appointment.setDiagnosis(diagnose.getDiagnosis());
+        appointment.getConsumer().setPressure(diagnose.getPressure());
+        appointment.getConsumer().setHeight(diagnose.getHeight());
+        appointment.getConsumer().setTemperature(diagnose.getTemperature());
+        appointment.getConsumer().setWeight(diagnose.getWeight());
+        appointmentRepository.save(appointment);
+    }
 }
 
 
