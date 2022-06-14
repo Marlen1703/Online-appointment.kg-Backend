@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 
 public class DoctorDTO {
 
+
     private String firstName;
 
     private String lastName;
