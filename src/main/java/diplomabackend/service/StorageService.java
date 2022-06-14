@@ -30,7 +30,7 @@ public class StorageService {
     public String store(MultipartFile file, String login) throws IOException {
         UUID uuid = UUID.randomUUID();
         String uuidWithExtension = uuid + getExtensionByStringHandling(file.getOriginalFilename());
-        FileOutputStream output = new FileOutputStream(new File("/src/main/getFile/avatar")
+        FileOutputStream output = new FileOutputStream(new File("src/main/getFile/avatar")
                 .getAbsolutePath() + "/" + uuidWithExtension);
         output.write(file.getBytes());
         output.close();
