@@ -12,7 +12,6 @@ public class DoctorRegistrationDTO {
 
     private String middleName;
 
-
     private String email;
 
     private String phone;
