@@ -9,6 +9,6 @@ public class StaticConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(final ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/getFile/avatar/**").addResourceLocations("file://" + System.getProperty("user.dir") + "/src/main/getFile/avatar/");
+        registry.addResourceHandler("/getFile/avatar/**").addResourceLocations("file://" + System.getProperty("user.dir") + "app/src/main/getFile/avatar/");
     }
 }
