@@ -31,4 +31,6 @@ public class DoctorDTO {
 
     private String education;
 
+
+
 }

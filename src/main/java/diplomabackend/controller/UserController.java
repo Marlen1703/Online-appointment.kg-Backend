@@ -10,6 +10,7 @@ import diplomabackend.service.StorageService;
 import diplomabackend.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,7 +30,7 @@ public class UserController {
     @Autowired
     MedicalCardService medicalCardService;
 
-    @PostMapping(value = "/registration")
+    @PostMapping(value = "/registration",consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
     public ResponseEntity<String> createNewUser(@ModelAttribute RegistrationRequestDTO registrationRequestDTO){
         try{
             Consumer consumer = modelMapper.map(registrationRequestDTO, Consumer.class);
