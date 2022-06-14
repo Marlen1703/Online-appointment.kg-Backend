@@ -1,9 +1,8 @@
 package diplomabackend.controller;
 
+import diplomabackend.domain.Consumer;
 import diplomabackend.domain.Doctor;
-import diplomabackend.dto.DoctorAuthRequestDTO;
-import diplomabackend.dto.DoctorAuthResponseDTO;
-import diplomabackend.dto.DoctorDTO;
+import diplomabackend.dto.*;
 import diplomabackend.jwt.JwtTokenProvider;
 import diplomabackend.repository.DoctorRepository;
 import diplomabackend.service.DoctorService;
@@ -11,6 +10,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -62,5 +62,17 @@ public class DoctorController {
             }
         }
         throw new UsernameNotFoundException("Doctor doesn't exist");
+    }
+
+    @PostMapping(value = "/registration")
+    public ResponseEntity<String> createNewDoctor(@RequestBody DoctorRegistrationDTO doctorRegistrationDTO){
+        try{
+            Doctor doctor = modelMapper.map(doctorRegistrationDTO, Doctor.class);
+            doctorService.createNewDoctor(doctor);
+            return ResponseEntity.ok("Success");
+        }
+        catch (Exception e){
+            return ResponseEntity.notFound().build();
+        }
     }
 }
