@@ -1,6 +1,5 @@
 package diplomabackend.domain;
 
-import diplomabackend.GenderEnum;
 import lombok.Data;
 
 import javax.persistence.*;

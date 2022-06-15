@@ -1,4 +1,4 @@
-package diplomabackend;
+package diplomabackend.enums;
 
 public enum GenderEnum {
     MAN((short)0),

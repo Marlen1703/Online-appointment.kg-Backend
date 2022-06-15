@@ -1,10 +1,6 @@
 package diplomabackend.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
-import diplomabackend.StatusEnum;
-import diplomabackend.domain.Appointment;
+import diplomabackend.enums.StatusEnum;
 import lombok.Data;
 
 import java.time.LocalDateTime;

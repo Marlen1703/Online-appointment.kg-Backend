@@ -1,4 +1,4 @@
-package diplomabackend;
+package diplomabackend.enums;
 
 public enum StatusEnum {
     UNEXPLORED((short)0),
@@ -10,5 +10,4 @@ public enum StatusEnum {
     StatusEnum(short i) {
         this.value  = i;
     }
-
 }

@@ -2,7 +2,7 @@ package diplomabackend.service;
 
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Predicate;
-import diplomabackend.StatusEnum;
+import diplomabackend.enums.StatusEnum;
 import diplomabackend.domain.*;
 import diplomabackend.domain.QAppointment;
 import diplomabackend.dto.AboutAppointmentDTO;
@@ -18,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -47,9 +46,9 @@ public class AppointmentService {
     ModelMapper modelMapper;
 
 
-    public Page<Appointment> getAllAppointments(int page, int size,String login){
+    public Page<Appointment> getAllRecentlyAppointments(int page, int size,String login){
         Pageable pageable= PageRequest.of(page,size);
-        Page<Appointment> appointmentPage=appointmentRepository.findAllByConsumer_Username(login,pageable);
+        Page<Appointment> appointmentPage=appointmentRepository.findAllByConsumer_UsernameAndStatus(login,pageable,StatusEnum.UNEXPLORED);
         return appointmentPage;
     }
 
@@ -82,6 +81,7 @@ public class AppointmentService {
         return appointmentPage;
     }
 
+
     public Page<Appointment> getAllRecentlyAppointmentsByAdmin(int page, int size, String login, Predicate predicate) {
         final QAppointment qAppointment = QAppointment.appointment;
         final BooleanBuilder builder = new BooleanBuilder(predicate);
@@ -92,7 +92,7 @@ public class AppointmentService {
     }
 
 
-    public Page<Appointment> getAllAppointments(int page, int size, String login, Predicate predicate) {
+    public Page<Appointment> getAllExploredAppointmentsByAdmin(int page, int size, String login, Predicate predicate) {
         final QAppointment qAppointment = QAppointment.appointment;
         final BooleanBuilder builder = new BooleanBuilder(predicate);
         builder.and(qAppointment.attendingDoctor.email.eq(login).and(qAppointment.status.eq(StatusEnum.EXPLORED)));
@@ -126,11 +126,7 @@ public class AppointmentService {
         appointmentRepository.save(appointment);
     }
 
-    public Page<AppointmentDTO> getAllRecentlyAppointments(String login) {
-        Pageable pageable = PageRequest.of(0,10);
-        Page<Appointment> appointmentPage=appointmentRepository.findAllByConsumerAndStatus(login,StatusEnum.UNEXPLORED,pageable);
-        return appointmentPage.map(appointment -> modelMapper.map(appointment,AppointmentDTO.class));
-    }
+
 }
 
 

@@ -3,10 +3,9 @@ package diplomabackend.repository;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.StringExpression;
 import com.querydsl.core.types.dsl.StringPath;
-import diplomabackend.StatusEnum;
+import diplomabackend.enums.StatusEnum;
 import diplomabackend.domain.Appointment;
 import diplomabackend.domain.QAppointment;
-import diplomabackend.domain.WorkHour;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -32,6 +31,7 @@ public interface AppointmentRepository extends JpaRepository<Appointment,Long>,
         bindings.excluding(root.status);
     }
 
+
     Page <Appointment> findByPolicy(Pageable pageable, String policy);
 //
 @Query(value = "SELECT * FROM appointment a WHERE DATE(time) = CURRENT_DATE and status=0 and attending_doctor_id=:id",nativeQuery = true)
@@ -46,9 +46,8 @@ Page<Appointment> findAllTodayAppointments(@Param("id") Long id,Pageable pageabl
     @Override
     Page<Appointment> findAll(Predicate predicate,Pageable pageable);
 
-    Page<Appointment>findAllByConsumer_Username(String username,Pageable pageable);
+    Page<Appointment>findAllByConsumer_UsernameAndStatus(String username,Pageable pageable,StatusEnum statusEnum);
 
     List<Appointment> findAll(Predicate predicate);
 
-    Page<Appointment> findAllByConsumerAndStatus(String consumer,StatusEnum status, Pageable pageable);
 }
