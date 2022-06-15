@@ -118,6 +118,7 @@ public class AppointmentService {
     @Transactional
     public void diagnosePatient(DiagnoseDTO diagnose) {
         Appointment appointment=appointmentRepository.findById(diagnose.getId()).get();
+        appointment.setStatus(StatusEnum.EXPLORED);
         appointment.setDiagnosis(diagnose.getDiagnosis());
         appointment.getConsumer().setPressure(diagnose.getPressure());
         appointment.getConsumer().setHeight(diagnose.getHeight());
