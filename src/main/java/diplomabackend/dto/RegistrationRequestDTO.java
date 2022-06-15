@@ -45,4 +45,6 @@ public class RegistrationRequestDTO {
     @NotNull
     private String email;
 
+    private String phone;
+
 }

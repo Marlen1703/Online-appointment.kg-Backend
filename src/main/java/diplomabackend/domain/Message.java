@@ -1,14 +1,20 @@
 package diplomabackend.domain;
 
 import diplomabackend.enums.MessageStatus;
-import org.springframework.data.annotation.Id;
+import lombok.Data;
 
+import javax.persistence.*;
 import java.util.Date;
 
+@Data
+@Entity
+@Table
 public class Message {
-    public class ChatMessage {
         @Id
-        private String id;
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        @Column(name = "id", nullable = false)
+        private Long id;
+
         private String chatId;
         private String senderId;
         private String recipientId;
@@ -17,5 +23,5 @@ public class Message {
         private String content;
         private Date timestamp;
         private MessageStatus status;
-    }
+
 }
