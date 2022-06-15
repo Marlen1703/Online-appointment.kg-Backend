@@ -6,6 +6,7 @@ import diplomabackend.StatusEnum;
 import diplomabackend.domain.*;
 import diplomabackend.domain.QAppointment;
 import diplomabackend.dto.AboutAppointmentDTO;
+import diplomabackend.dto.AppointmentDTO;
 import diplomabackend.dto.DiagnoseDTO;
 import diplomabackend.dto.NewAppointmentDTO;
 import diplomabackend.repository.AppointmentRepository;
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -45,8 +47,9 @@ public class AppointmentService {
     ModelMapper modelMapper;
 
 
-    public List<Appointment> getAllAppointments(Pageable pageable){
-        List<Appointment> appointmentPage=appointmentRepository.findAll();
+    public Page<Appointment> getAllAppointments(int page, int size,String login){
+        Pageable pageable= PageRequest.of(page,size);
+        Page<Appointment> appointmentPage=appointmentRepository.findAllByConsumer_Username(login,pageable);
         return appointmentPage;
     }
 
@@ -79,7 +82,7 @@ public class AppointmentService {
         return appointmentPage;
     }
 
-    public Page<Appointment> getAllRecentlyAppointments(int page, int size, String login, Predicate predicate) {
+    public Page<Appointment> getAllRecentlyAppointmentsByAdmin(int page, int size, String login, Predicate predicate) {
         final QAppointment qAppointment = QAppointment.appointment;
         final BooleanBuilder builder = new BooleanBuilder(predicate);
         builder.and(qAppointment.attendingDoctor.email.eq(login).and(qAppointment.status.eq(StatusEnum.UNEXPLORED)));
@@ -121,6 +124,12 @@ public class AppointmentService {
         appointment.getConsumer().setTemperature(diagnose.getTemperature());
         appointment.getConsumer().setWeight(diagnose.getWeight());
         appointmentRepository.save(appointment);
+    }
+
+    public Page<AppointmentDTO> getAllRecentlyAppointments(String login) {
+        Pageable pageable = PageRequest.of(0,10);
+        Page<Appointment> appointmentPage=appointmentRepository.findAllByConsumerAndStatus(login,StatusEnum.UNEXPLORED,pageable);
+        return appointmentPage.map(appointment -> modelMapper.map(appointment,AppointmentDTO.class));
     }
 }
 

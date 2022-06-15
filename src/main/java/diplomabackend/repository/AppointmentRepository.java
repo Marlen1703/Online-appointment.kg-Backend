@@ -46,8 +46,9 @@ Page<Appointment> findAllTodayAppointments(@Param("id") Long id,Pageable pageabl
     @Override
     Page<Appointment> findAll(Predicate predicate,Pageable pageable);
 
+    Page<Appointment>findAllByConsumer_Username(String username,Pageable pageable);
 
     List<Appointment> findAll(Predicate predicate);
 
-    Page<Appointment> findAllByStatus(StatusEnum status, Pageable pageable);
+    Page<Appointment> findAllByConsumerAndStatus(String consumer,StatusEnum status, Pageable pageable);
 }

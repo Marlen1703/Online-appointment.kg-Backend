@@ -47,7 +47,7 @@ public class AdminController {
                                                            @RequestHeader("Authorization") String token,
                                                            @QuerydslPredicate(root = Appointment.class) Predicate predicate){
         String login = jwtTokenProvider.getLoginFromToken(token.substring(7));
-        Page<Appointment> appointmentPage=appointmentService.getAllRecentlyAppointments(page,size,login,predicate);
+        Page<Appointment> appointmentPage=appointmentService.getAllRecentlyAppointmentsByAdmin(page,size,login,predicate);
         List<AppointmentDTO> appointmentDTOS=appointmentPage.stream().map(element-> modelMapper.map(element,AppointmentDTO.class)).collect(Collectors.toList());
         Page<AppointmentDTO> result=new PageImpl<>(appointmentDTOS);
         return result;

@@ -60,14 +60,23 @@ public class AppointmentController {
         return appointmentDTO;
     }
 
+    @GetMapping(value = "/recently")
+    public Page<AppointmentDTO> getAllRecentlyAppointments(@RequestHeader("Authorization")String token) {
+        String login = jwtTokenProvider.getLoginFromToken(token.substring(7));
+        return appointmentService.getAllRecentlyAppointments(login);
+    }
 
     @GetMapping
-    public List<AppointmentDTO> getAllAppointments(Pageable pageable){
-        List<Appointment> appointmentPage= appointmentService.getAllAppointments(pageable);
+    public Page<AppointmentDTO> getAllAppointments(@RequestParam(value = "page",defaultValue = "0")int page,
+                                                   @RequestParam(value = "size",defaultValue = "10") int size,
+                                                   @RequestHeader("Authorization")String token){
+        String login=jwtTokenProvider.getLoginFromToken(token.substring(7));
+        Page<Appointment> appointmentPage= appointmentService.getAllAppointments(page, size,login);
         List<AppointmentDTO> appointmentDTOS=appointmentPage.stream().map(appointment -> modelMapper
                         .map(appointment,AppointmentDTO.class))
                 .collect(Collectors.toList());
-        return appointmentDTOS;
+        Page<AppointmentDTO> result=new PageImpl<>(appointmentDTOS);
+        return result;
     }
 
 

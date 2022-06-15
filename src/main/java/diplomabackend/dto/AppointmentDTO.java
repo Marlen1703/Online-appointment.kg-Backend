@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import diplomabackend.StatusEnum;
+import diplomabackend.domain.Appointment;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -25,4 +26,5 @@ public class AppointmentDTO {
     private StatusEnum status;
 
     private ConsumerDTO consumer;
+
 }
