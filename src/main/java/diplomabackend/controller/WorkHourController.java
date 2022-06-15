@@ -1,5 +1,6 @@
 package diplomabackend.controller;
 
+import diplomabackend.domain.Appointment;
 import diplomabackend.domain.WorkHour;
 import diplomabackend.dto.WorkHourDTO;
 import diplomabackend.service.WorkHourService;
@@ -20,8 +21,7 @@ public class WorkHourController {
     WorkHourService workHourService;
 
     @GetMapping(value = "/check")
-    public List<WorkHourDTO> checkAvailableAppointments(@RequestParam String date,@RequestParam Long id){
-        List <WorkHourDTO> workHourDTOS=workHourService.checkAvailableAppointments(date,id).stream().map(WorkHourDTO::new).collect(Collectors.toList());
-        return workHourDTOS;
+    public List<WorkHourDTO> checkAvailableAppointments(@RequestParam String date, @RequestParam Long id){
+       return workHourService.checkAvailableAppointments(date,id);
     }
 }

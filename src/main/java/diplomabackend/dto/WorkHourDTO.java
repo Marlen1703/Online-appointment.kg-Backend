@@ -8,12 +8,13 @@ import java.time.LocalDateTime;
 @Data
 public class WorkHourDTO {
 
-    private LocalDateTime bookTime;
+    private String workHour;
 
-    private boolean isAvailable;
+    private boolean available;
+
 
     public WorkHourDTO(WorkHour workHour) {
-        this.bookTime = workHour.getBookTime();
-        this.isAvailable = workHour.isAvailable();
+        this.workHour = workHour.getWorkHour();
+        this.available=true;
     }
 }

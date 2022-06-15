@@ -65,12 +65,6 @@ public class AppointmentService {
 
         Appointment appointment=modelMapper.map(newAppointmentDTO,Appointment.class);
 
-        WorkHour workHour= WorkHour.builder()
-                .bookTime(newAppointmentDTO.getTime())
-                .doctorId(newAppointmentDTO.getDoctorId())
-                .isAvailable(false)
-                .build();
-        workHourRepository.save(workHour);
 
         appointment.setAttendingDoctor(doctor);
         appointment.setConsumer(consumer);
