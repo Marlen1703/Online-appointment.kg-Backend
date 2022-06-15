@@ -54,4 +54,6 @@ public class Consumer {
     private String phone;
 
     private String avatar;
+
+    private String address;
 }
