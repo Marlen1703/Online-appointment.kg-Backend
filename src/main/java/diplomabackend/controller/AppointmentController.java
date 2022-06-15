@@ -70,52 +70,12 @@ public class AppointmentController {
         return appointmentDTOS;
     }
 
-    @GetMapping(value = "/admin/today")
-    public Page<TodayAppointmentDTO> getAllTodayAppointments(@RequestParam(defaultValue = "0") int page,
-                                                             @RequestParam(defaultValue = "10") int size,
-                                                             @RequestHeader("Authorization") String token){
-        String login = jwtTokenProvider.getLoginFromToken(token.substring(7));
-       return appointmentService.getAllTodayAppointments(page,size,login).map(TodayAppointmentDTO::new);
-    };
-
-    @GetMapping(value = "/admin/recently")
-    public Page<AppointmentDTO> getAllRecentlyAppointments(@RequestParam(defaultValue = "0") int page,
-                                                           @RequestParam(defaultValue = "10") int size,
-                                                           @RequestHeader("Authorization") String token,
-                                                           @QuerydslPredicate(root = Appointment.class) Predicate predicate){
-        String login = jwtTokenProvider.getLoginFromToken(token.substring(7));
-        Page<Appointment> appointmentPage=appointmentService.getAllRecentlyAppointments(page,size,login,predicate);
-        List <AppointmentDTO> appointmentDTOS=appointmentPage.stream().map(element-> modelMapper.map(element,AppointmentDTO.class)).collect(Collectors.toList());
-        Page<AppointmentDTO> result=new PageImpl<>(appointmentDTOS);
-        return result;
-    };
-
-    @GetMapping(value = "/admin/explored")
-    public Page<AppointmentDTO> getAllAppointments(@RequestParam(defaultValue = "0") int page,
-                                                           @RequestParam(defaultValue = "10") int size,
-                                                           @RequestHeader("Authorization") String token,
-                                                           @QuerydslPredicate(root = Appointment.class) Predicate predicate){
-        String login = jwtTokenProvider.getLoginFromToken(token.substring(7));
-        Page<Appointment> appointmentPage=appointmentService.getAllAppointments(page,size,login,predicate);
-        List <AppointmentDTO> appointmentDTOS=appointmentPage.stream().map(element-> modelMapper.map(element,AppointmentDTO.class)).collect(Collectors.toList());
-        Page<AppointmentDTO> result=new PageImpl<>(appointmentDTOS);
-        return result;
-    };
-
-    @GetMapping(value = "/admin/count")
-    public int getCountOfAppointments(@QuerydslPredicate(root = Appointment.class) Predicate predicate,@RequestHeader("Authorization") String token){
-        String login = jwtTokenProvider.getLoginFromToken(token.substring(7));
-        return appointmentService.getAllAppointmentCount(login,predicate);
-    }
 
 
-    @GetMapping(value = "/admin/about/{id}")
-    public AboutAppointmentDTO getAboutAppointment(@PathVariable("id") Long id){
-        return appointmentService.getAboutAppointment(id);
-    }
 
-    @PostMapping(value = "diagnose")
-    public void diagnosePatient(@RequestBody DiagnoseDTO diagnose) {
-        appointmentService.diagnosePatient(diagnose);
-    }
+
+
+
+
+
 }
