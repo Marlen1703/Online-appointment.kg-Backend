@@ -1,5 +1,6 @@
 package diplomabackend.controller;
 
+import com.querydsl.core.types.Predicate;
 import diplomabackend.domain.Appointment;
 import diplomabackend.dto.*;
 import diplomabackend.jwt.JwtTokenProvider;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -76,6 +78,20 @@ public class AppointmentController {
         return result;
     }
 
+
+    @GetMapping(value = "explored")
+    public Page<AppointmentDTO> getAllExploredAppointments(@RequestParam(value = "page",defaultValue = "0")int page,
+                                                            @RequestParam(value = "size",defaultValue = "10") int size,
+                                                            @RequestHeader("Authorization")String token,
+                                                            @QuerydslPredicate(root = Appointment.class) Predicate predicate){
+        String login=jwtTokenProvider.getLoginFromToken(token.substring(7));
+        Page<Appointment> appointmentPage= appointmentService.getAllExploredAppointments(page, size,login,predicate);
+        List<AppointmentDTO> appointmentDTOS=appointmentPage.stream().map(appointment -> modelMapper
+                        .map(appointment,AppointmentDTO.class))
+                .collect(Collectors.toList());
+        Page<AppointmentDTO> result=new PageImpl<>(appointmentDTOS);
+        return result;
+    }
 
 
 

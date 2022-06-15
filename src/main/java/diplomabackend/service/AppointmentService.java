@@ -127,6 +127,14 @@ public class AppointmentService {
     }
 
 
+    public Page<Appointment> getAllExploredAppointments(int page, int size, String login,Predicate predicate) {
+        final QAppointment qAppointment = QAppointment.appointment;
+        final BooleanBuilder builder = new BooleanBuilder(predicate);
+        builder.and(qAppointment.consumer.username.eq(login).and(qAppointment.status.eq(StatusEnum.EXPLORED)));
+        Pageable pageable = PageRequest.of(page,size);
+        Page <Appointment> appointmentPage=appointmentRepository.findAll(builder.getValue(),pageable);
+        return appointmentPage;
+    }
 }
 
 
