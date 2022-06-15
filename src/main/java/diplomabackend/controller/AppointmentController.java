@@ -79,7 +79,7 @@ public class AppointmentController {
     }
 
 
-    @GetMapping(value = "explored")
+    @GetMapping(value = "history")
     public Page<AppointmentDTO> getAllExploredAppointments(@RequestParam(value = "page",defaultValue = "0")int page,
                                                             @RequestParam(value = "size",defaultValue = "10") int size,
                                                             @RequestHeader("Authorization")String token,
